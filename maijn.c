@@ -48,6 +48,20 @@ int einlesen(struct Spielfeld* spielfeld, struct Spieler* aktuellerSpieler){
 	return 0;
 }
 
+// wenn 0 noch nicht unentschieden
+// wenn 1 unentschieden
+int unentschieden(struct Spielfeld* spielfeld){
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 3; j++){
+			if(spielfeld->Feld[j][i] == 0){
+				return 0;
+			}
+		}
+	}
+
+	return 1;
+}
+
 int main(){
 	struct Spielfeld spielfeld;
 	for(int i = 0; i < 3; i++){
@@ -71,6 +85,12 @@ int main(){
 			fehler = einlesen(&spielfeld, aktuellerSpieler);
 		}
 
+		int iUn = unentschieden(&spielfeld);
+		if(iUn == 1){
+			printf("Unentschieden\n");
+			return 0;
+		}
+
 		if(aktuellerSpieler == &spieler1){
 			aktuellerSpieler = &spieler2;
 		}
@@ -82,3 +102,4 @@ int main(){
 
 	return 0;
 }
+
